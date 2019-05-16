@@ -1,0 +1,1 @@
+# google-staticmap-path
