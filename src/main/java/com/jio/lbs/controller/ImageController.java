@@ -214,7 +214,12 @@ public class ImageController {
 				if(result != null && result.routes != null && result.routes.length>0 && result.routes[0] != null) {
 					if(null != result.routes[0].overviewPolyline)
 						pathOutModel.setEncodedPolyline(result.routes[0].overviewPolyline);
-					pathOutModel.setDistance(result.routes[0].legs[0].distance.inMeters/1000);
+					double distanceforEach = 0.00;
+					for(int j=0; j< result.routes[0].legs.length; j++)
+					{
+						distanceforEach = distanceforEach + result.routes[0].legs[j].distance.inMeters;
+					}
+					pathOutModel.setDistance(distanceforEach/(1000*1.0));
 				}
 				
 			}
