@@ -9,7 +9,7 @@ import com.google.maps.model.LatLng;
 @Attributes(title = "StaticMap", description = "Schema for an StaticMap")
 public class RequestModel {
 	
-	@JsonProperty(value = "color", defaultValue = "#06327a" )
+	@JsonProperty(value = "color", defaultValue = "0x06327a" )
 	@Attributes(required = true, description = "Color of Path")
 	private String pathColor;
 	
@@ -46,6 +46,9 @@ public class RequestModel {
 	@JsonProperty("waypoint")
 	@Attributes(required = false, minItems = 0, maxItems = 23, description = "waypoint")
 	private List<LatLng> waypoint;
+	
+	@JsonProperty(value = "scale", defaultValue="1")
+	private int scale;
 
 	public String getPathColor() {
 		return pathColor;
@@ -129,12 +132,21 @@ public class RequestModel {
 	public void setMapType(String mapType) {
 		this.mapType = mapType;
 	}
+	
+	public int getScale() {
+		return scale;
+	}
+
+	public void setScale(int scale) {
+		this.scale = scale;
+	}
 
 	@Override
 	public String toString() {
 		return "RequestModel [pathColor=" + pathColor + ", startLocation=" + startLocation + ", endLocation="
 				+ endLocation + ", width=" + width + ", height=" + height + ", weight=" + weight + ", zoom=" + zoom
-				+ ", centerZoom=" + centerZoom + ", mapType=" + mapType + ", waypoint=" + waypoint + "]";
+				+ ", centerZoom=" + centerZoom + ", mapType=" + mapType + ", waypoint=" + waypoint + ", scale=" + scale
+				+ "]";
 	}
 
 }
