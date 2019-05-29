@@ -64,18 +64,16 @@ public class ImageController {
 	@Value("${app.ConnTimeOut}")
 	public String connTimeOut;
 	
-	@Value("${app.MarkerStart}")
+	/*@Value("${app.MarkerStart}")
 	public String markerStart;
 	
 	@Value("${app.MarkerEnd}")
 	public String markerEnd;
 	
 	@Value("${app.MarkerIp}")
-	public String markerIp;
+	public String markerIp;*/
 	
 	private static ObjectMapper mapper = new ObjectMapper();
-    //public static final String JSON_$SCHEMA_DRAFT4_VALUE = "http://json-schema.org/draft-04/schema#";
-    //public static final String JSON_$SCHEMA_ELEMENT = "$schema";
     
     static {
         // required for pretty printing
@@ -102,13 +100,13 @@ public class ImageController {
 		Markers[] markers = new Markers[3];
 		markers[0] = new Markers();
 	      markers[0].size(MarkersSize.normal);
-	      markers[0].color(markerStart);
+	      markers[0].color(requestModel.getMarkerStart());
 	      markers[0].label("S");
 	      markers[0].addLocation(requestModel.getStartLocation());
 	      
 	      markers[1] = new Markers();
 	      markers[1].size(MarkersSize.normal);
-	      markers[1].color(markerEnd);
+	      markers[1].color(requestModel.getMarkerEnd());
 	      markers[1].label("D");
 	      markers[1].addLocation(requestModel.getEndLocation());
 	    if(context == null)
@@ -130,7 +128,7 @@ public class ImageController {
 				List<LatLng> latLngs = requestModel.getWaypoint();
 				markers[2] = new Markers();
 				markers[2].size(MarkersSize.small);
-				markers[2].color(markerIp);
+				markers[2].color(requestModel.getMarkerIp());
 				markers[2].label("L");
 				for (LatLng latLng : latLngs) {
 					markers[2].addLocation(latLng);
