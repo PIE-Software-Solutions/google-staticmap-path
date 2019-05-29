@@ -159,6 +159,7 @@ public class ImageController {
 					req.markers(markers[2]);
 				if(null != requestModel.getCenterZoom())
 					req.center(requestModel.getCenterZoom());
+				req.scale(requestModel.getScale());
 				if(null != requestModel.getMapType() && !requestModel.getMapType().isEmpty())
 					req.maptype(StaticMapType.valueOf(requestModel.getMapType()));
 				if(requestModel.getZoom() != ZOOM_DEFAULT)
