@@ -42,10 +42,13 @@ import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.EncodedPolyline;
 import com.google.maps.model.LatLng;
 import com.google.maps.model.Size;
+import com.jio.lbs.model.AESDetails;
 import com.jio.lbs.model.PathOutModel;
 import com.jio.lbs.model.PerRequestPathModel;
 import com.jio.lbs.model.RequestModel;
 import com.jio.lbs.model.ResponseModel;
+import com.jio.lbs.utils.Decrypt;
+import com.jio.lbs.utils.Encrypt;
 
 import static com.jio.lbs.utils.AppConstants.ZOOM_DEFAULT;
 import static com.jio.lbs.utils.AppConstants.SERVICE_CONN_TIMEOUT;
@@ -63,15 +66,6 @@ public class ImageController {
 	
 	@Value("${app.ConnTimeOut}")
 	public String connTimeOut;
-	
-	/*@Value("${app.MarkerStart}")
-	public String markerStart;
-	
-	@Value("${app.MarkerEnd}")
-	public String markerEnd;
-	
-	@Value("${app.MarkerIp}")
-	public String markerIp;*/
 	
 	private static ObjectMapper mapper = new ObjectMapper();
     
@@ -111,9 +105,10 @@ public class ImageController {
 	      markers[1].addLocation(requestModel.getEndLocation());
 	    if(context == null)
 		{
+	    	String decApiKey = Decrypt.decrypt(apiKey, null, null);
 			context =
 			        new GeoApiContext.Builder()
-				        .apiKey(apiKey)
+				        .apiKey(decApiKey)
 				        .connectTimeout(Integer.parseInt(connTimeOut), TimeUnit.MILLISECONDS)
 			            .build();
 		}
@@ -289,5 +284,17 @@ public class ImageController {
 			pathOutModel1.setDistance(distance);
 		}
 		return pathOutModel1;
+	}
+	
+	
+	@RequestMapping(value = "/aes-encrypt", method = RequestMethod.GET)
+	public String getAesEncrypt(@RequestBody AESDetails aesDetails)  {
+    	try {
+			return Encrypt.encrypt(aesDetails.getClearpass(), aesDetails.getSecretKey(), aesDetails.getSalt());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
