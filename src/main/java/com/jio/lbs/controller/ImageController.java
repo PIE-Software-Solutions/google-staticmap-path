@@ -108,7 +108,6 @@ public class ImageController {
 	    if(context == null)
 		{
 	    	String decApiKey = Decrypt.decrypt(apiKey, SECRITE_KEY, SALT_KEY);
-	    	System.out.println("AAAAAAAAAAA "+decApiKey);
 			context =
 			        new GeoApiContext.Builder()
 				        .apiKey(decApiKey)
