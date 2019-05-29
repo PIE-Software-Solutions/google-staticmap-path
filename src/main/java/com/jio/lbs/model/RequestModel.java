@@ -49,6 +49,18 @@ public class RequestModel {
 	
 	@JsonProperty(value = "scale", defaultValue="1")
 	private int scale;
+	
+	@JsonProperty(value = "markerstart", defaultValue = "0x06327a" )
+	@Attributes(required = true, description = "Start Marker Color")
+	private String markerStart;
+	
+	@JsonProperty(value = "Markerend", defaultValue = "0x06327a" )
+	@Attributes(required = true, description = "End  Marker Color")
+	private String MarkerEnd;
+	
+	@JsonProperty(value = "Markerip", defaultValue = "0x06327a" )
+	@Attributes(required = true, description = "Intermediate Marker Color")
+	private String MarkerIp;
 
 	public String getPathColor() {
 		return pathColor;
@@ -133,6 +145,8 @@ public class RequestModel {
 		this.mapType = mapType;
 	}
 	
+	
+
 	public int getScale() {
 		return scale;
 	}
@@ -140,13 +154,36 @@ public class RequestModel {
 	public void setScale(int scale) {
 		this.scale = scale;
 	}
+	
+	public String getMarkerStart() {
+		return markerStart;
+	}
+
+	public void setMarkerStart(String markerStart) {
+		this.markerStart = markerStart;
+	}
+
+	public String getMarkerEnd() {
+		return MarkerEnd;
+	}
+
+	public void setMarkerEnd(String markerEnd) {
+		MarkerEnd = markerEnd;
+	}
+
+	public String getMarkerIp() {
+		return MarkerIp;
+	}
+
+	public void setMarkerIp(String markerIp) {
+		MarkerIp = markerIp;
+	}
 
 	@Override
 	public String toString() {
 		return "RequestModel [pathColor=" + pathColor + ", startLocation=" + startLocation + ", endLocation="
 				+ endLocation + ", width=" + width + ", height=" + height + ", weight=" + weight + ", zoom=" + zoom
 				+ ", centerZoom=" + centerZoom + ", mapType=" + mapType + ", waypoint=" + waypoint + ", scale=" + scale
-				+ "]";
+				+ ", markerStart=" + markerStart + ", MarkerEnd=" + MarkerEnd + ", MarkerIp=" + MarkerIp + "]";
 	}
-
 }
