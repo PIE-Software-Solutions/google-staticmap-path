@@ -53,6 +53,8 @@ import com.jio.lbs.utils.Encrypt;
 import static com.jio.lbs.utils.AppConstants.ZOOM_DEFAULT;
 import static com.jio.lbs.utils.AppConstants.SERVICE_CONN_TIMEOUT;
 import static com.jio.lbs.utils.AppConstants.MAX_WAY_POINTS;
+import static com.jio.lbs.utils.AppConstants.SALT_KEY;
+import static com.jio.lbs.utils.AppConstants.SECRITE_KEY;
 
 @Configuration
 @RestController
@@ -105,7 +107,8 @@ public class ImageController {
 	      markers[1].addLocation(requestModel.getEndLocation());
 	    if(context == null)
 		{
-	    	String decApiKey = Decrypt.decrypt(apiKey, null, null);
+	    	String decApiKey = Decrypt.decrypt(apiKey, SECRITE_KEY, SALT_KEY);
+	    	System.out.println("AAAAAAAAAAA "+decApiKey);
 			context =
 			        new GeoApiContext.Builder()
 				        .apiKey(decApiKey)
