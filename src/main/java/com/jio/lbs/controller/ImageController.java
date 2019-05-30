@@ -55,11 +55,16 @@ import static com.jio.lbs.utils.AppConstants.SERVICE_CONN_TIMEOUT;
 import static com.jio.lbs.utils.AppConstants.MAX_WAY_POINTS;
 import static com.jio.lbs.utils.AppConstants.SALT_KEY;
 import static com.jio.lbs.utils.AppConstants.SECRITE_KEY;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Configuration
 @RestController
 @PropertySource(ignoreResourceNotFound=false,value="file:${app.confpath}/application.properties")
 public class ImageController {
+	
+	private static final Logger logger = LogManager.getLogger(ImageController.class);
+	
 	public static GeoApiContext context;
 	
 	@Value("${app.ApiKey}")
@@ -93,6 +98,8 @@ public class ImageController {
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/generatePath", method = RequestMethod.POST)
 	public ResponseEntity<ResponseModel>/*@ResponseBody byte[]*/ getFile(@RequestBody RequestModel requestModel)  {
+
+		logger.debug("Input Request :: " + requestModel.toString());
 		Markers[] markers = new Markers[3];
 		markers[0] = new Markers();
 	      markers[0].size(MarkersSize.normal);
@@ -142,8 +149,7 @@ public class ImageController {
 				  path.color(requestModel.getPathColor());
 				  path.addEncPolyline(pathOutModel.getEncodedPolyline());
 				  path.weight(requestModel.getWeight());
-					
-				StaticMapsRequest req = StaticMapsApi.newRequest(context, new Size(requestModel.getWidth(), requestModel.getHeight()))
+				  StaticMapsRequest req = StaticMapsApi.newRequest(context, new Size(requestModel.getWidth(), requestModel.getHeight()))
 											.path(path)
 											.format(ImageFormat.jpg);
 				if(null != markers[0])
